@@ -29,7 +29,7 @@ const bot = new Bot(adapter)
     .use(new InquiryStateMiddleware())
     .onReceive((context) => {
       const store = getStore(context)
-      const infoConvo = new Inquiry('info', store)
+      const infoConvo = new Inquiry('info', store)                 //values returned after every turn
       const name = infoConvo.ask('Hi, whats your name?', 'name')   //null      -> "Hao"     -> "Hao"         -> "Hao"
       const email = infoConvo.ask('Whats your email?', 'email')    //undefined -> null      -> "haolu@m.com" -> "haolu@m.com"
       const birthday = infoConvo.ask('Whats your birthday?', 'bd') //undefined -> undefined -> null          -> "2/29/88"
