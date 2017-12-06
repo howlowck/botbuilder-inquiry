@@ -1,4 +1,4 @@
-# Botbuilder Inquiry
+# Botbuilder Inquiry ![groundhog-mascot](./assets/inquiry-groundhog.png)
 
 ## Design Philosophy
 
