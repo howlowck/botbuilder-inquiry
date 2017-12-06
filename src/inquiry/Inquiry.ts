@@ -39,8 +39,9 @@ export default class Inquiry<T extends InquiryInterface> {
     protected convoName: string
     protected store: ReduxStore<T> | StateStore<T>
 
-    static text (strings: TemplateStringsArray, ...keys: Array<string|null>) { // tagged template literal
-      if (includes(keys, null)) {
+    static text (strings: TemplateStringsArray, ...keys: Array<string|null|undefined>): string | null { 
+      // tagged template literal
+      if (includes(keys, null) || includes(keys, undefined)) {
         return null
       }
     

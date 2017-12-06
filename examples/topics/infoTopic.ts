@@ -12,7 +12,6 @@ const infoTopic = (context: BotContext, store: any) => {
   const email = convo.ask('Whats your email?', 'email', [emailValidator])
   const birthday = convo.ask('Whats your birthday?', 'bd')
   convo.reply(text`Nice! now I have your name ${name}, Email: ${email}, Birthday: ${birthday}`)
-  return [name, email, birthday]
-  // return Promise.resolve({name, email, birthday})
+  return Promise.resolve({name, email, birthday})
 }
 export default infoTopic

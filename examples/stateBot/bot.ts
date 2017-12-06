@@ -36,10 +36,9 @@ bot.onReceive(context => {
   if (context.request.type !== 'message') {
     return
   }
-  const topicResults = infoTopic(context, getStore(context)) // [name, email, birthday]
 
-  render(context, getStore(context))
-  // return topic.then(({name, email, birthday}) => {
-  //   render(context, getStore(context))
-  // })
+  return infoTopic(context, getStore(context))
+    .then(({name, email, birthday}) => {
+      render(context, getStore(context))
+    })
 })
