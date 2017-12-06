@@ -30,14 +30,10 @@ const bot = new Bot(adapter)
     .onReceive((context) => {
       const store = getStore(context)
       const infoConvo = new Inquiry('info', store)
-      const name = infoConvo.ask('Hi, whats your name?', 'name')   
-      //null      -> "Hao"     -> "Hao"         -> "Hao"
-      const email = infoConvo.ask('Whats your email?', 'email')    
-      //undefined -> null      -> "haolu@m.com" -> "haolu@m.com"
-      const birthday = infoConvo.ask('Whats your birthday?', 'bd') 
-      //undefined -> undefined -> null          -> "2/29/88"
-      convo.reply(text`Nice! now I have your name ${name}, Email: ${email}, Birthday: ${birthday}`)
-      //Only replies when all are returned
+      const name = infoConvo.ask('Hi, whats your name?', 'name')   //null      -> "Hao"     -> "Hao"         -> "Hao"
+      const email = infoConvo.ask('Whats your email?', 'email')    //undefined -> null      -> "haolu@m.com" -> "haolu@m.com"
+      const birthday = infoConvo.ask('Whats your birthday?', 'bd') //undefined -> undefined -> null          -> "2/29/88"
+      convo.reply(text`Nice! now I have your name ${name}, Email: ${email}, Birthday: ${birthday}`) //Replies when all truthy
       render(context, getStore(context))
     })
 ```
