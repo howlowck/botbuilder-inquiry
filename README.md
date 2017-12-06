@@ -2,8 +2,9 @@
 
 ## Design Philosophy
 
-This Botbuilder Inquiry package is built on top of `botbuilder-redux`.  It uses the powerful Redux store to manage its state.  Inquiry hides the implementation details of inspecting the state while making your conversation easy to understand.
+Botbuilder Inquiry inspects your bot state and makes your question-answer back and forth super readable.
 
+Goals:
 * Thin API
 * Flexible
 * Functional
