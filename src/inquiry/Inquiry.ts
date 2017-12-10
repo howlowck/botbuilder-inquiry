@@ -19,7 +19,7 @@ export interface InquiryInterface extends StoreItem {
   _inquiry: InquiryState
 }
 
-export type Transformer = (incomingMessage: string) => string
+export type Transformer = (incomingMessage: string) => any
 
 export type Validator = {
   validate: (incomingMessage: string) => boolean
@@ -70,18 +70,18 @@ export default class Inquiry<T extends InquiryInterface> {
     protected getValue (state: T, type: string) {
       return get(state, '_inquiry.data.' + this.getRequestPath(type))
     }
-  
+    
     ask (
-      message: string, 
+      question: string, 
       type: string, 
       validators: Validator[] = [],
       transformer?: Transformer
-    ): null | string | undefined {
+    ): any {
       const {getState, dispatch} = this.store
       const requestPath = this.getRequestPath(type)
 
       if (!(getState()._inquiry.requesting)) { // if state is not requesting anything, asking the question
-        dispatch({type: '_INQUIRY_SEND_TEXT', data: message})
+        dispatch({type: '_INQUIRY_SEND_TEXT', data: question})
         dispatch({type: '_INQUIRY_ASK', data: requestPath})
         return null
       }
@@ -104,6 +104,32 @@ export default class Inquiry<T extends InquiryInterface> {
   
       return this.getValue(getState(), type)
     }
+
+    askAgain(question: string, type: string): void {
+      this.ask(question, type)
+      this.delete(type)
+    }
+
+    hasValue(type: string) {
+      const {getState} = this.store
+      return (typeof this.getValue(getState(), type)) !== 'undefined'
+    }
+
+    get(type: string, defaultValue?: any) {
+      const {getState} = this.store
+      const value = this.getValue(getState(), type)
+      return typeof value === 'undefined' ? defaultValue : value
+    }
+
+    set(type: string, value: string|Array<any>|object|number|boolean) {
+      const {getState, dispatch} = this.store
+      dispatch({type: '_INQUIRY_SET_VALUE', requestPath: this.convoName + '.' + type, data: value})
+    }
+
+    delete(type: string) {
+      const {dispatch} = this.store
+      dispatch({type: '_INQUIRY_DELETED', requestPath: this.convoName + '.' + type})
+    }
   
     reply (message: string | null): void {
       const {dispatch} = this.store
@@ -111,5 +137,4 @@ export default class Inquiry<T extends InquiryInterface> {
         dispatch({type: '_INQUIRY_SEND_TEXT', data: message})
       }
     }
-    
 }

@@ -17,6 +17,9 @@ export default abstract class InquiryMiddleware<S extends InquiryInterface> impl
   }
 
   contextCreated (context: BotContext) {
+     if (context.request.type !== 'message') {
+      return
+    }
     const store = this.getStore(context)
     store.dispatch({type: '_INQUIRY_CLEAR_RESPONSES'})
     store.dispatch({type: '_INQUIRY_INCOMING_MESSAGE', data: context.request.text})

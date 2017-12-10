@@ -14,6 +14,7 @@ import createStore, {State, Store} from './createStore'
 import fetch from 'node-fetch'
 import infoTopic from '../topics/infoTopic'
 import bookFlightTopic from '../topics/bookFlightTopic'
+import numberGuessingTopic from '../topics/numberGuessingTopic'
 
 const {render} = Inquiry
 
@@ -53,7 +54,9 @@ bot.onReceive(context => {
   if (context.request.type !== 'message') {
     return
   }
-  const topic = infoTopic(context, getStore(context))
-  return topic.then(() => {render(context, getStore<State>(context))})
+  // const topic = infoTopic(context, getStore(context))
+  // return topic.then(() => {render(context, getStore<State>(context))})
+  numberGuessingTopic(context, getStore(context))
+  render(context, getStore(context))
   // defaultRenderer(context, getStore<State.All>(context))
 })
