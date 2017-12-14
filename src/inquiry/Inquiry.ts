@@ -67,10 +67,10 @@ export default class Inquiry<T extends InquiryInterface> {
       return `${this.convoName}.${type}`
     }
 
-    protected getValue (state: T, type: string) {
-      return get(state, '_inquiry.data.' + this.getRequestPath(type))
+    protected getValue (state: T, type: string, def?: any) {
+      return get(state, '_inquiry.data.' + this.getRequestPath(type), def)
     }
-    
+
     ask (
       question: string, 
       type: string, 
@@ -80,7 +80,8 @@ export default class Inquiry<T extends InquiryInterface> {
       const {getState, dispatch} = this.store
       const requestPath = this.getRequestPath(type)
 
-      if (!(getState()._inquiry.requesting)) { // if state is not requesting anything, asking the question
+      // if state is not requesting anything, asking the question
+      if (!(getState()._inquiry.requesting)) {
         dispatch({type: '_INQUIRY_SEND_TEXT', data: question})
         dispatch({type: '_INQUIRY_ASK', data: requestPath})
         return null

@@ -1,6 +1,6 @@
 {
   "name": "botbuilder-inquiry",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/index",
   "typings": "dist/index",
@@ -12,12 +12,14 @@
     "test": "npm run build:dev && jest"
   },
   "peerDependencies": {
-    "botbuilder-redux": "~1.0.0",
     "botbuilder-core": "^4.0.0-h3.3"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
   "devDependencies": {
     "@types/lodash": "^4.14.87",
     "@types/node-fetch": "^1.6.7",
@@ -25,10 +27,9 @@
     "@types/validator": "^6.3.0",
     "botbuilder-core": "^4.0.0-h3.4",
     "botbuilder-redux": "^1.0.1",
-    "botbuilder-services": "^4.0.0-h3.5",
+    "botbuilder-services": "^4.0.0-h4.1",
     "dotenv": "^4.0.0",
     "jest": "^21.2.1",
-    "lodash": "^4.17.4",
     "node-fetch": "^1.7.3",
     "ramda": "^0.25.0",
     "redux": "^3.7.2",
