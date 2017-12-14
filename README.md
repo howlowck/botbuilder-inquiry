@@ -29,12 +29,19 @@ const bot = new Bot(adapter)
     .use(new BotStateManager())
     .use(new InquiryStateMiddleware())
     .onReceive((context) => {
+      
+      if (context.request.type !== 'message') return
+
       const store = getStore(context)
-      const infoConvo = new Inquiry('info', store)                 //values returned after every turn
-      const name = infoConvo.ask('Hi, whats your name?', 'name')   //null      -> "Hao"     -> "Hao"         -> "Hao"
-      const email = infoConvo.ask('Whats your email?', 'email')    //undefined -> null      -> "haolu@m.com" -> "haolu@m.com"
-      const birthday = infoConvo.ask('Whats your birthday?', 'bd') //undefined -> undefined -> null          -> "2/29/88"
-      convo.reply(text`Nice! now I have your name ${name}, Email: ${email}, Birthday: ${birthday}`) //Replies when all truthy
+      const convo = new Inquiry('info', store)
+      const name = convo.ask('Hi, whats your name?', 'name')
+      const email = convo.ask('Whats your email?', 'email')
+      const confirmEmail = convo.ask(`Is this ${email} what you want?`, 'confirmEmail', [], (message) => message === 'yes')
+      if (confirmEmail === false) {
+        convo.askAgain('Ok. What is your email??', 'email')
+      }
+      const birthday = convo.ask('Whats your birthday?', 'bd')
+      convo.reply(text`Nice! now I have your name ${name}, Email: ${email}, Birthday: ${birthday}`)
       render(context, getStore(context))
     })
 ```
