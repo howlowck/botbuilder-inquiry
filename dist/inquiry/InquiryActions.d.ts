@@ -1,7 +1,7 @@
 export declare type Action = {
     type: '_INQUIRY_ANSWERED';
     requestPath: string;
-    data: string;
+    data: any;
 } | {
     type: '_INQUIRY_INCOMING_MESSAGE';
     data: string;
@@ -16,4 +16,11 @@ export declare type Action = {
     data: object;
 } | {
     type: '_INQUIRY_CLEAR_RESPONSES';
+} | {
+    type: '_INQUIRY_DELETED';
+    requestPath: string;
+} | {
+    type: '_INQUIRY_SET_VALUE';
+    requestPath: string;
+    data: any;
 };

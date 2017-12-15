@@ -9,9 +9,9 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.default = (prevState = null, action) => {
+    exports.default = (prevState = '', action) => {
         if (action.type === '_INQUIRY_INCOMING_MESSAGE') {
-            return action.data;
+            return action.data || null;
         }
         return prevState;
     };

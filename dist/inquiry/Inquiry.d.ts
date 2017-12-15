@@ -13,7 +13,7 @@ export interface InquiryState {
 export interface InquiryInterface extends StoreItem {
     _inquiry: InquiryState;
 }
-export declare type Transformer = (incomingMessage: string) => string;
+export declare type Transformer = (incomingMessage: string) => any;
 export declare type Validator = {
     validate: (incomingMessage: string) => boolean;
     retry?: string;
@@ -29,11 +29,16 @@ export default class Inquiry<T extends InquiryInterface> {
      */
     protected convoName: string;
     protected store: ReduxStore<T> | StateStore<T>;
-    static text(strings: TemplateStringsArray, ...keys: Array<string | null>): string | null;
+    static text(strings: TemplateStringsArray, ...keys: Array<string | null | undefined>): string | null;
     static render(context: BotContext, store: ReduxStore<InquiryInterface> | StateStore<InquiryInterface>): void;
     constructor(convoName: string, store: ReduxStore<T> | StateStore<T>);
     protected getRequestPath(type: string): string;
-    protected getValue(state: T, type: string): T[string];
-    ask(message: string, type: string, validators?: Validator[], transformer?: Transformer): null | string | undefined;
+    protected getValue(state: T, type: string, def?: any): any;
+    ask(question: string, type: string, validators?: Validator[], transformer?: Transformer): any;
+    askAgain(question: string, type: string): void;
+    hasValue(type: string): boolean;
+    get(type: string, defaultValue?: any): any;
+    set(type: string, value: string | Array<any> | object | number | boolean): void;
+    delete(type: string): void;
     reply(message: string | null): void;
 }

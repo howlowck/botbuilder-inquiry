@@ -15,6 +15,14 @@
             const requestPath = action.requestPath;
             return Object.assign({}, lodash_1.set(prevState, requestPath, action.data));
         }
+        if (action.type === '_INQUIRY_SET_VALUE') {
+            const requestPath = action.requestPath;
+            return Object.assign({}, lodash_1.set(prevState, requestPath, action.data));
+        }
+        if (action.type === '_INQUIRY_DELETED') {
+            const { requestPath } = action;
+            return Object.assign({}, lodash_1.omit(prevState, [requestPath]));
+        }
         return prevState;
     };
 });
